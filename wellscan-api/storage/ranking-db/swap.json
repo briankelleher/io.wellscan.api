@@ -1,0 +1,540 @@
+{
+    "name": "swap",
+    "values": {
+      "green": 3,
+      "yellow": 2,
+      "red": 1
+    },
+    "default-rank": "red",
+    "categories": {
+      "fruit": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 32
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 12
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 50
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 25
+            }
+          ]
+        }
+      ],
+      "vegetables": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 140
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 230
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 7
+            }
+          ]
+        }
+      ],
+      "grain-not-whole": [
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 400
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 12
+            }
+          ]
+        }
+      ],
+      "grain-whole": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 230
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 400
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 12
+            }
+          ]
+        }
+      ],
+  
+  
+      "protein-plant": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 200
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 480
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 9
+            }
+          ]
+        }
+      ],
+      "protein-animal": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 200
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 480
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 1
+            }
+          ]
+        }
+      ],
+      "combination-food-meal": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 3
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 480
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 7
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 6.5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 600
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 10
+            }
+          ]
+        }
+      ],
+      "dairy-milk": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1.5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 180
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 12
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 3
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 200
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 22
+            }
+          ]
+        }
+      ],
+      "dairy-yogurt": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 1.5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 180
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 3
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 200
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 24
+            }
+          ]
+        }
+      ],
+      "dairy-cheese": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 3
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 200
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 6
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 480
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 2
+            }
+          ]
+        }
+      ],
+      "condiment": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 0
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 250
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 0.5
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 350
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 7
+            }
+          ]
+        }
+      ],
+      "beverage": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 0
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 0
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 0
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 160
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 11
+            }
+          ]
+        }
+      ],
+      "snack-dessert": [
+        {
+          "rank": "green",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 230
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "rank": "yellow",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 2
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 400
+            },
+            {
+              "property": "nf_sugars",
+              "operator": "lte",
+              "value": 12
+            }
+          ]
+        }
+      ]
+    }
+  }
+  
