@@ -25,6 +25,9 @@ Route::middleware('api')->post('foods', 'App\Http\Controllers\ApiController@crea
 Route::middleware('api')->get('foods/lookup', 'App\Http\Controllers\ApiController@lookUpFood');
 
 Route::middleware('api')->get('foods/usda', 'App\Http\Controllers\ApiController@getFromUSDA');
+Route::middleware('api')->get('foods/off', 'App\Http\Controllers\ApiController@getFromOFF');
+
+Route::middleware('api')->get('foods/calculateRank', 'App\Http\Controllers\ApiController@calculateRank');
 
 
 // Route::put('foods/{upc}', 'ApiController@updateFood');

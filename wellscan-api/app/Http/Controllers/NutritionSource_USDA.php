@@ -18,9 +18,10 @@ class NutritionSource_USDA extends Controller
 
         
         if($fdcid['status'] == 200)
-            $food = $this->getFoodByFDCID($fdcid['fdcid']);
-        else
+            $food = $this->getFoodByFDCID($fdcid['fdcId']);
+        else {
             $food = $fdcid;
+        }
 
         return $food;
     }
@@ -37,16 +38,15 @@ class NutritionSource_USDA extends Controller
         $res = curl_exec($ch);
         curl_close($ch);
 
-        echo $res;
-    
-        //$res = json_decode($res);
+        
+        $res = json_decode($res);
 
         
 
         
         if (isset($res->foods[0])) {
             $data['status'] = 200;
-            $data['fdcid'] = $res->foods[0]->fdcId;
+            $data['fdcId'] = $res->foods[0]->fdcId;
         } else {
             $data = array ("status" => 404, "msg" => "could not find food in the USDA DB");
         }
@@ -61,9 +61,22 @@ class NutritionSource_USDA extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         curl_close($ch);
-
+        //echo $res;
         $res = json_decode($res);
-        $data = (array) $res->labelNutrients;
+        
+        $data = array();
+        $data['name'] = $res->description;
+        $data['nutrition']['nf_saturated_fat'] = $res->labelNutrients->saturatedFat->value ?? 0;
+        $data['nutrition']['nf_sodium'] = $res->labelNutrients->sodium->value ?? 0;
+        $data['nutrition']['nf_sugars'] = $res->labelNutrients->sugars->value ?? 0;
+        $data['nutrition_source'] = "usda";
+        $data['nutrition_method'] = "automated";
+        $data['status'] = 200;
+        $data['msg'] = "Found product in USDA Database";
+
+        
+
+
 
         return $data;
     }
