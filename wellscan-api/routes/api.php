@@ -19,16 +19,39 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::middleware('api')->get('foods', 'App\Http\Controllers\ApiController@getAllFoods');
-// Route::get('foods/{upc}', 'ApiController@getFood');
+
+Route::get('foods/{upc}', 'App\Http\Controllers\ApiController@getFood');
+
 Route::middleware('api')->post('foods', 'App\Http\Controllers\ApiController@createFood');
 
-Route::middleware('api')->get('foods/lookup', 'App\Http\Controllers\ApiController@lookUpFood');
+Route::get('foods/lookup/{upc}', 'App\Http\Controllers\ApiController@lookUpFood');
 
-Route::middleware('api')->get('foods/usda', 'App\Http\Controllers\ApiController@getFromUSDA');
-Route::middleware('api')->get('foods/off', 'App\Http\Controllers\ApiController@getFromOFF');
+Route::get('foods/lookup/{upc}/{category}', 'App\Http\Controllers\ApiController@lookUpFood');
 
-Route::middleware('api')->get('foods/calculateRank', 'App\Http\Controllers\ApiController@calculateRank');
+Route::get('foods/usda/{upc}', 'App\Http\Controllers\ApiController@getFromUSDA');
+Route::get('foods/off/{upc}', 'App\Http\Controllers\ApiController@getFromOFF');
+
+Route::get('foods/calculateRank/{upc}/{category}', 'App\Http\Controllers\ApiController@calculateRank');
+Route::get('foods/rankFromNuts/{category}/{nf_sugars}/{nf_sodium}/{nf_saturated_fat}', 'App\Http\Controllers\ApiController@calculateRankFromNutrients');
 
 
-// Route::put('foods/{upc}', 'ApiController@updateFood');
+// Route::put('foods/{upc}', 'App\Http\Controllers\ApiController@updateFood');
+
 // Route::delete('foods/{id}','ApiController@deleteFood');
+
+/**
+ * HER RANKING NOTE
+ * Use the added sugar value when available on the Nutrition Facts Label. 
+ * If it is not available, use the total sugar value. 
+ * 
+ * The thresholds are the same for all categories except fruits and 
+ * vegetables and dairy. 
+ * 
+ * For both fruits and vegetables and dairy, 
+ * total sugar thresholds are ≤ 12 grams for the “choose often” tier, 
+ * 
+ * 13 to 23 grams for the “choose sometimes tier,” 
+ * and ≥24 grams for the “choose rarely” tier.
+ * 
+ * 
+ */

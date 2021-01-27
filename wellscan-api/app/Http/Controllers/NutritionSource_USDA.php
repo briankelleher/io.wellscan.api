@@ -13,8 +13,8 @@ class NutritionSource_USDA extends Controller
         $this->fdcid_endpoint = "https://api.nal.usda.gov/fdc/v1/foods/search?api_key=".$this->usda_key."&query=";
     }
 
-    public function getNutritionByUPC($request) {
-        $fdcid = $this->getFDCIDByUPC($request);
+    public function getNutritionByUPC($upc) {
+        $fdcid = $this->getFDCIDByUPC($upc);
 
         
         if($fdcid['status'] == 200)
@@ -26,13 +26,13 @@ class NutritionSource_USDA extends Controller
         return $food;
     }
 
-    public function getFDCIDByUPC($request) {
+    public function getFDCIDByUPC($upc) {
 
         // because of the way the USDA API works, the first step is to 
         // search the database for the UPC, then take the first result
         // and get its FDCID
 
-        $url = $this->fdcid_endpoint . $request->upc;
+        $url = $this->fdcid_endpoint . $upc;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
@@ -66,9 +66,11 @@ class NutritionSource_USDA extends Controller
         
         $data = array();
         $data['name'] = $res->description;
+    
         $data['nutrition']['nf_saturated_fat'] = $res->labelNutrients->saturatedFat->value ?? 0;
         $data['nutrition']['nf_sodium'] = $res->labelNutrients->sodium->value ?? 0;
         $data['nutrition']['nf_sugars'] = $res->labelNutrients->sugars->value ?? 0;
+        $data['nutrition']['nf_added_sugar'] = $res->labelNutrients->addedSugar->value ?? 0;
         $data['nutrition_source'] = "usda";
         $data['nutrition_method'] = "automated";
         $data['status'] = 200;

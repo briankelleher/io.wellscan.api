@@ -30,7 +30,8 @@ class ApiController extends Controller
         //return response()->json($food, 201);
       }
 
-      public function lookUpFood(Request $request) {
+      public function lookUpFood($upc, $category=NULL) {
+        
         $data = array();
 
         $data['status'] = 404;
@@ -41,19 +42,19 @@ class ApiController extends Controller
         // for count(sources), while $data['status'] == 404;
 
         
-        $data = $sources['off']->getNutritionByUPC($request);
+        $data = $sources['off']->getNutritionByUPC($upc);
 
         if ($data['status'] !== 404): 
            // if we have a category, we can rank the food
-            if(isset($request->category)) {
-                $data['rankings']['swap']['category'] = $request->category;
-                $data['rankings']['swap']['rank'] = $this->calculateSWAPRankByNutritionInfo($data['nutrition'], $request->category);
+            if(isset($category)) {
+                $data['rankings']['swap']['category'] = $category;
+                $data['rankings']['swap']['rank'] = $this->calculateSWAPRankByNutritionInfo($data['nutrition'], $category);
             } else {
                 $data['rankings'] = array();
             }
 
 
-            $data['upc'] = $request->upc;
+            $data['upc'] = $upc;
             $data['status'] = 200;
             
             $food = Food::updateOrCreate(
@@ -75,14 +76,14 @@ class ApiController extends Controller
       }
 
 
-      public function calculateRank(Request $request) {
-        $upc = $request['upc'];
-        $category = $request['category'];
+      public function calculateRank($upc, $category) {
+        
+   
         $food = new Food();
         $food = $food->where('upc',$upc)->limit(1)->get();
         $food = $food[0];
         
-       
+        
         
         $rank = $this->calculateSWAPRankByNutritionInfo($food->nutrition, $category);
 
@@ -92,19 +93,31 @@ class ApiController extends Controller
         return $this->updateFood($upc, $data);
       }
 
+      public function calculateRankFromNutrients($category, $sugars, $sodium, $satfat) {
+       $nuts['nf_sugars'] = $sugars;
+       $nuts['nf_sodium'] = $sodium;
+       $nuts['nf_saturated_fat'] = $satfat;
+
+       $data['category'] = $category;
+       $data['msg'] = "Rank calculated manually for {$category}.";
+       $data['rank'] = $this->calculateSWAPRankByNutritionInfo($nuts, $category);
+
+       return $data;
+      }
+
       /** ~~~~~ Individual Nutrition Source Tests ~~~~~ */
 
-      public function getFromUSDA(Request $request) {
+      public function getFromUSDA($upc) {
         $source = new NutritionSource_USDA();
-        $nuts = $source->getNutritionByUPC($request);
-
+        $nuts = $source->getNutritionByUPC($upc);
+        
         return $nuts;
 
       }
 
-      public function getFromOFF(Request $request) {
+      public function getFromOFF($upc) {
         $source = new NutritionSource_OFF();
-        $nuts = $source->getNutritionByUPC($request);
+        $nuts = $source->getNutritionByUPC($upc);
         
         return $nuts;
       }
@@ -114,13 +127,13 @@ class ApiController extends Controller
 
       // last touched 13 November 2020
       public function calculateSWAPRankByNutritionInfo($nuts, $cat) {
-
+        
        
         // $satfat = $nuts['nf_saturated_fat'];
         // $sodium = $nuts['nf_sodium'];
         // $sugars = $nuts['nf_sugars'];
 
-        $path = storage_path() . "/ranking-db/swap.json"; // ie: /var/www/laravel/app/storage/ranking-db/swap.json
+        $path = storage_path() . "/ranking-db/her.json"; // ie: /var/www/laravel/app/storage/ranking-db/*.json
         $db = json_decode(file_get_contents($path), true); 
         $rank = $db['default-rank'];
 
@@ -159,6 +172,9 @@ class ApiController extends Controller
   
       public function getFood($upc) {
         // logic to get a Food by UPC goes here
+        $food = Food::where('upc', '=', $upc)->get();
+
+        return $food;
       }
   
       public function updateFood($upc, $data) {
@@ -169,6 +185,17 @@ class ApiController extends Controller
         $food->save();
 
         return $food;
+      }
+
+      public function prepareFoodForUpdate($upc, Request $request) {
+        $food = Food::where('upc', '=', $upc)->get();
+
+        $food->nutrition_source = $request['blame'];
+        $food->nutrition_method = "manual";
+        $food->nutrition = $request['nutrition'];
+        $food->rankings = $request['rankings'];
+        $food->name = $request['name'];
+
       }
   
       public function deleteFood($upc) {

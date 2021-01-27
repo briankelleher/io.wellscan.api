@@ -11,17 +11,19 @@ class NutritionSource_OFF extends Controller
         $this->endpoint = "https://world.openfoodfacts.org/api/v0/product/";
     }
 
-    public function getNutritionByUPC($request) {
-        $url = $this->endpoint . $request->upc . ".json";
+    public function getNutritionByUPC($upc) {
+        $url = $this->endpoint . $upc . ".json";
 
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         curl_close($ch);
 
+
         $nf_sodium = 'sodium_serving';
         $nf_saturated_fat = 'saturated-fat_serving';
         $nf_sugars = 'sugars_serving';
+        $nf_added_sugar = 'sugars_added';
 
         $response = json_decode($res);
         if(isset($response->product)) {
@@ -30,6 +32,7 @@ class NutritionSource_OFF extends Controller
             $data['nutrition']['nf_saturated_fat'] = $response->product->nutriments->$nf_saturated_fat ?? 0;
             $data['nutrition']['nf_sodium'] = $sod_val * 1000;
             $data['nutrition']['nf_sugars'] = $response->product->nutriments->$nf_sugars ?? 0;
+            if(isset($response->product->nutriments->$nf_added_sugar)) $data['nutrition']['nf_added_sugar'] = $response->product->nutriments->$nf_added_sugar ?? "0";
             $data['nutrition_source'] = $this->source;
             $data['nutrition_method'] = 'automated';
             $data['msg'] = "Found product in OpenFoodFacts";
