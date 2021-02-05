@@ -14,7 +14,7 @@
             {
               "property": "nf_saturated_fat",
               "operator": "lte",
-              "value": 2
+              "value": 2.5
             },
             {
               "property": "nf_sodium",
@@ -40,8 +40,8 @@
           "requirements": [
             {
               "property": "nf_saturated_fat",
-              "operator": "gte",
-              "value": 2.5
+              "operator": "lte",
+              "value": 99
             },
             {
               "property": "nf_sodium",
@@ -89,7 +89,7 @@
             {
               "property": "nf_saturated_fat",
               "operator": "gte",
-              "value": 2.5
+              "value": 99
             },
             {
               "property": "nf_sodium",
@@ -111,7 +111,7 @@
             {
               "property": "nf_saturated_fat",
               "operator": "gte",
-              "value": 2.5
+              "value": 99
             },
             {
               "property": "nf_sodium",

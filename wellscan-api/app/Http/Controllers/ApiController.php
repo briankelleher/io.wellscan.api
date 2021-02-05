@@ -93,8 +93,8 @@ class ApiController extends Controller
         return $this->updateFood($upc, $data);
       }
 
-      public function calculateRankFromNutrients($category, $added_sugars, $sodium, $satfat) {
-       $nuts['nf_sugars'] = $added_sugars;
+      public function calculateRankFromNutrients($category, $satfat, $sodium, $added_sugars, $sugars) {
+       $nuts['nf_sugars'] = $sugars;
        $nuts['nf_sodium'] = $sodium;
        $nuts['nf_saturated_fat'] = $satfat;
        $nuts['nf_added_sugars'] = $added_sugars;
@@ -135,9 +135,6 @@ class ApiController extends Controller
         // $sugars = $nuts['nf_sugars'];
 
 
-          if ($cat == "fruits-vegetables" or $cat == "dairy") {
-            $nuts['nf_added_sugars'] = 0;
-          }
         
 
         $path = storage_path() . "/ranking-db/her.json"; // ie: /var/www/laravel/app/storage/ranking-db/*.json
