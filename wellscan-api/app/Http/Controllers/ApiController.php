@@ -93,11 +93,11 @@ class ApiController extends Controller
         return $this->updateFood($upc, $data);
       }
 
-      public function calculateRankFromNutrients($category, $sugars, $sodium, $satfat) {
+      public function calculateRankFromNutrients($category, $added_sugars, $sodium, $satfat) {
        $nuts['nf_sugars'] = $sugars;
        $nuts['nf_sodium'] = $sodium;
        $nuts['nf_saturated_fat'] = $satfat;
-       $nuts['nf_added_sugars'] = $sugars;
+       $nuts['nf_added_sugars'] = $added_sugars;
 
        $data['category'] = $category;
        $data['msg'] = "Rank calculated manually for {$category}.";
@@ -136,7 +136,7 @@ class ApiController extends Controller
 
 
           if ($cat == "fruits-vegetables" or $cat == "dairy") {
-            $nuts['nf_added_sugars'] == 0;
+            $nuts['nf_added_sugars'] = 0;
           }
         
 
