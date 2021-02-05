@@ -94,7 +94,7 @@ class ApiController extends Controller
       }
 
       public function calculateRankFromNutrients($category, $added_sugars, $sodium, $satfat) {
-       $nuts['nf_sugars'] = $sugars;
+       $nuts['nf_sugars'] = $added_sugars;
        $nuts['nf_sodium'] = $sodium;
        $nuts['nf_saturated_fat'] = $satfat;
        $nuts['nf_added_sugars'] = $added_sugars;
