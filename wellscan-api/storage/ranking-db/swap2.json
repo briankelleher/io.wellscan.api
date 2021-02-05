@@ -22,17 +22,10 @@
               "value": 230
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 12
-            },
-
-            {
-              "property": "nf_added_sugars",
-              "operator": "eq",
-              "value": 0
             }
-
           ]
         },
         {
@@ -40,7 +33,7 @@
           "requirements": [
             {
               "property": "nf_saturated_fat",
-              "operator": "gte",
+              "operator": "lte",
               "value": 2.5
             },
             {
@@ -49,15 +42,9 @@
               "value": 479
             },
             {
-              "property": "nf_sugars",
-              "operator": "lte",
-              "value": 24
-            },
-
-            {
               "property": "nf_added_sugars",
               "operator": "lte",
-              "value": 11
+              "value": 24
             }
           ]
         }
@@ -77,7 +64,7 @@
               "value": 230
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 6
             }
@@ -88,7 +75,7 @@
           "requirements": [
             {
               "property": "nf_saturated_fat",
-              "operator": "gte",
+              "operator": "lte",
               "value": 2.5
             },
             {
@@ -97,7 +84,7 @@
               "value": 479
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -110,7 +97,7 @@
           "requirements": [
             {
               "property": "nf_saturated_fat",
-              "operator": "gte",
+              "operator": "lte",
               "value": 2.5
             },
             {
@@ -119,7 +106,7 @@
               "value": 479
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -141,7 +128,7 @@
               "value": 230
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 6
             }
@@ -161,7 +148,7 @@
               "value": 479
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -183,11 +170,47 @@
               "value": 230
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 12
+            }
+          ]
+        },
+        {
+          "rank": "sometimes",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 6
             },
-
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 479
+            },
+            {
+              "property": "nf_added_sugars",
+              "operator": "lte",
+              "value": 24
+            }
+          ]
+        }
+      ],
+      "non-dairy": [
+        {
+          "rank": "often",
+          "requirements": [
+            {
+              "property": "nf_saturated_fat",
+              "operator": "lte",
+              "value": 3
+            },
+            {
+              "property": "nf_sodium",
+              "operator": "lte",
+              "value": 230
+            },
             {
               "property": "nf_added_sugars",
               "operator": "eq",
@@ -209,63 +232,14 @@
               "value": 479
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 24
-            },
-            {
-              "property": "nf_added_sugars",
-              "operator": "lte",
-              "value": 11
             }
           ]
         }
       ],
 
-      "non-dairy-alternative": [
-        {
-          "rank": "often",
-          "requirements": [
-            {
-              "property": "nf_saturated_fat",
-              "operator": "lte",
-              "value": 2
-            },
-            {
-              "property": "nf_sodium",
-              "operator": "lte",
-              "value": 230
-            },
-
-            {
-              "property": "nf_added_sugars",
-              "operator": "lte",
-              "value": 6
-            }
-          ]
-        },
-        {
-          "rank": "sometimes",
-          "requirements": [
-            {
-              "property": "nf_saturated_fat",
-              "operator": "gte",
-              "value": 2.5
-            },
-            {
-              "property": "nf_sodium",
-              "operator": "lte",
-              "value": 479
-            },
-            {
-              "property": "nf_added_sugars",
-              "operator": "lte",
-              "value": 11
-            }
-          ]
-        }
-      ],
-      
       "beverage": [
         {
           "rank": "often",
@@ -281,7 +255,7 @@
               "value": 0
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 0
             }
@@ -301,7 +275,7 @@
               "value": 139
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -323,7 +297,7 @@
               "value": 480
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 6
             }
@@ -343,7 +317,7 @@
               "value": 599
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -365,7 +339,7 @@
               "value": 140
             },
             {
-              "property": "nf_sugars",
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 6
             }

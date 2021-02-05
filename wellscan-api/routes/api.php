@@ -32,7 +32,7 @@ Route::get('foods/usda/{upc}', 'App\Http\Controllers\ApiController@getFromUSDA')
 Route::get('foods/off/{upc}', 'App\Http\Controllers\ApiController@getFromOFF');
 
 Route::get('foods/calculateRank/{upc}/{category}', 'App\Http\Controllers\ApiController@calculateRank');
-Route::get('foods/rankFromNuts/{category}/{nf_sugars}/{nf_sodium}/{nf_saturated_fat}', 'App\Http\Controllers\ApiController@calculateRankFromNutrients');
+Route::get('foods/rankFromNuts/{category}/{nf_added_sugars}/{nf_sodium}/{nf_saturated_fat}', 'App\Http\Controllers\ApiController@calculateRankFromNutrients');
 
 
 // Route::put('foods/{upc}', 'App\Http\Controllers\ApiController@updateFood');

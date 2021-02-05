@@ -97,6 +97,7 @@ class ApiController extends Controller
        $nuts['nf_sugars'] = $sugars;
        $nuts['nf_sodium'] = $sodium;
        $nuts['nf_saturated_fat'] = $satfat;
+       $nuts['nf_added_sugars'] = $sugars;
 
        $data['category'] = $category;
        $data['msg'] = "Rank calculated manually for {$category}.";
@@ -132,6 +133,12 @@ class ApiController extends Controller
         // $satfat = $nuts['nf_saturated_fat'];
         // $sodium = $nuts['nf_sodium'];
         // $sugars = $nuts['nf_sugars'];
+
+
+          if ($cat == "fruits-vegetables" or $cat == "dairy") {
+            $nuts['nf_added_sugars'] == 0;
+          }
+        
 
         $path = storage_path() . "/ranking-db/her.json"; // ie: /var/www/laravel/app/storage/ranking-db/*.json
         $db = json_decode(file_get_contents($path), true); 
