@@ -145,6 +145,12 @@
               "operator": "lte",
               "value": 6
             }
+            ,
+            {
+              "property": "nf_added_sugars",
+              "operator": "lte",
+              "value": 6
+            }
           ]
         },
         {
@@ -162,6 +168,11 @@
             },
             {
               "property": "nf_sugars",
+              "operator": "lte",
+              "value": 11
+            },
+            {
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -285,6 +296,12 @@
               "operator": "lte",
               "value": 0
             }
+            ,
+            {
+              "property": "nf_added_sugars",
+              "operator": "lte",
+              "value": 0
+            }
           ]
         },
         {
@@ -302,6 +319,12 @@
             },
             {
               "property": "nf_sugars",
+              "operator": "lte",
+              "value": 11
+            }
+            ,
+            {
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -326,6 +349,11 @@
               "property": "nf_sugars",
               "operator": "lte",
               "value": 6
+            },
+            {
+              "property": "nf_added_sugars",
+              "operator": "lte",
+              "value": 6
             }
           ]
         },
@@ -344,6 +372,12 @@
             },
             {
               "property": "nf_sugars",
+              "operator": "lte",
+              "value": 11
+            }
+            ,
+            {
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 11
             }
@@ -366,6 +400,11 @@
             },
             {
               "property": "nf_sugars",
+              "operator": "lte",
+              "value": 6
+            },
+            {
+              "property": "nf_added_sugars",
               "operator": "lte",
               "value": 6
             }
