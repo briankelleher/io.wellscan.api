@@ -31,6 +31,14 @@ class ApiController extends Controller
       }
 
       public function lookUpFood($upc, $category=NULL) {
+        $food_already_exists = false;
+
+        $food = Food::where('upc', '=', $upc)->get();
+        if ($food->count()) {
+          $food_already_exists = true;
+          $existing_rankings = $food[0]->rankings;
+          return $food[0];
+        }
         
         $data = array();
 
@@ -50,7 +58,11 @@ class ApiController extends Controller
                 $data['rankings']['swap']['category'] = $category;
                 $data['rankings']['swap']['rank'] = $this->calculateSWAPRankByNutritionInfo($data['nutrition'], $category);
             } else {
-                $data['rankings'] = array();
+                if(!$food_already_exists)
+                  $data['rankings'] = array();
+                elseif ($food_already_exists) {
+                  $data['rankings'] = $existing_rankings;
+                }
             }
 
 
@@ -86,7 +98,7 @@ class ApiController extends Controller
         
         
         $rank = $this->calculateSWAPRankByNutritionInfo($food->nutrition, $category);
-
+        
         $data = [];
         $data['rankings']['swap']['rank'] = $rank;
 
@@ -128,7 +140,7 @@ class ApiController extends Controller
 
       // last touched 13 November 2020
       public function calculateSWAPRankByNutritionInfo($nuts, $cat) {
-        
+  
        
         // $satfat = $nuts['nf_saturated_fat'];
         // $sodium = $nuts['nf_sodium'];
@@ -159,6 +171,8 @@ class ApiController extends Controller
                     $property = $requirements[$i]['property'];
                     $cutoff = $requirements[$i]['value'];
 
+                    
+
                     $pass = Operators::$operator($nuts[$property], $cutoff);
 
                     $i++;
@@ -181,13 +195,25 @@ class ApiController extends Controller
         return $food;
       }
   
-      public function updateFood($upc, $data) {
+      public function updateFood (Request $request, $upc) {
+        
+        $data['upc'] = $upc;
+        $data['name'] = $request->name;
+        $data['nutrition']['nf_saturated_fat'] = $request->nf_saturated_fat;
+        $data['nutrition']['nf_sodium'] = $request->sodium;
+        $data['nutrition']['nf_sugars'] = $request->sugars;
+        $data['rankings']['swap']['category'] = $request->category;
+        $data['rankings']['swap']['rank'] = $request->rank;
+        $data["nutrition_source"] =  $request->nutrition_source;
+        $data["nutrition_method"] = "manual";
+        $data["status"] = 200;
+        
         $food = Food::updateOrCreate(
           ['upc' => $upc],
           $data
         );
         $food->save();
-
+        
         return $food;
       }
 

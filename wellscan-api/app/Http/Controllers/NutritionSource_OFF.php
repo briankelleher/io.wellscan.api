@@ -32,7 +32,11 @@ class NutritionSource_OFF extends Controller
             $data['nutrition']['nf_saturated_fat'] = $response->product->nutriments->$nf_saturated_fat ?? 0;
             $data['nutrition']['nf_sodium'] = $sod_val * 1000;
             $data['nutrition']['nf_sugars'] = $response->product->nutriments->$nf_sugars ?? 0;
-            if(isset($response->product->nutriments->$nf_added_sugar)) $data['nutrition']['nf_added_sugar'] = $response->product->nutriments->$nf_added_sugar ?? "0";
+            if(isset($response->product->nutriments->$nf_added_sugar)) {
+                $data['nutrition']['nf_added_sugars'] = $response->product->nutriments->$nf_added_sugar;
+            } else {
+                $data['nutrition']['nf_added_sugars'] = "NA";
+            }
             $data['nutrition_source'] = $this->source;
             $data['nutrition_method'] = 'automated';
             $data['msg'] = "Found product in OpenFoodFacts";

@@ -35,7 +35,7 @@ Route::get('foods/calculateRank/{upc}/{category}', 'App\Http\Controllers\ApiCont
 Route::get('foods/rankFromNuts/{category}/{satfat}/{sodium}/{added_sugars}/{sugars}', 'App\Http\Controllers\ApiController@calculateRankFromNutrients');
 
 
-// Route::put('foods/{upc}', 'App\Http\Controllers\ApiController@updateFood');
+Route::put('foods/{upc}', 'App\Http\Controllers\ApiController@updateFood');
 
 // Route::delete('foods/{id}','ApiController@deleteFood');
 

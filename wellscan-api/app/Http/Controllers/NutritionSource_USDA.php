@@ -70,7 +70,7 @@ class NutritionSource_USDA extends Controller
         $data['nutrition']['nf_saturated_fat'] = $res->labelNutrients->saturatedFat->value ?? 0;
         $data['nutrition']['nf_sodium'] = $res->labelNutrients->sodium->value ?? 0;
         $data['nutrition']['nf_sugars'] = $res->labelNutrients->sugars->value ?? 0;
-        $data['nutrition']['nf_added_sugar'] = $res->labelNutrients->addedSugar->value ?? 0;
+        $data['nutrition']['nf_added_sugars'] = $res->labelNutrients->addedSugar->value ?? 0;
         $data['nutrition_source'] = "usda";
         $data['nutrition_method'] = "automated";
         $data['status'] = 200;
