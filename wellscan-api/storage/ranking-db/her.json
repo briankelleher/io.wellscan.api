@@ -3,7 +3,8 @@
     "values": {
       "often": 3,
       "sometimes": 2,
-      "rarely": 1
+      "rarely": 1,
+      "unranked" : 0
     },
     "default-rank": "rarely",
     "categories": {
@@ -413,7 +414,19 @@
 
       ],
       "processed-packaged-snack": [],
-      "dessert":[]
+      "dessert":[],
+      "baking-supplies-condiments":[
+        {
+          "rank" : "unranked",
+          "requirements": [
+            {
+              "property":"nf_saturated_fat",
+              "operator":"gte",
+              "value":0
+            }
+          ]
+        }
+      ]
     }
   }
   

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Food;
 use App\Http\Controllers\NutritionSource_OFF;
 use App\Http\Controllers\NutritionSource_USDA;
+use App\Http\Controllers\NutritionSource_Spoonacular;
 
 use App\Http\Controllers\Operators;
 
@@ -44,13 +45,27 @@ class ApiController extends Controller
 
         $data['status'] = 404;
         $sources['off'] = new NutritionSource_OFF();
-        $sources['usda'] = new NutritionSource_USDA();
+        $sources['spoonacular'] = new NutritionSource_Spoonacular;
+        //$sources['usda'] = new NutritionSource_USDA();
+
+        
+
         //$sources['fatsecret'] = new NutritionSource_FatSecret();
 
         // for count(sources), while $data['status'] == 404;
 
         
+
         $data = $sources['off']->getNutritionByUPC($upc);
+
+        if($data['status'] == 404){
+          $data = $sources['spoonacular']->getNutritionbyUPC($upc);
+        }
+
+        // if($data['status'] == 404){
+        //   $data = $sources['usda']->getNutritionbyUPC($upc);
+        // }
+        
 
         if ($data['status'] !== 404): 
            // if we have a category, we can rank the food
@@ -135,6 +150,13 @@ class ApiController extends Controller
         return $nuts;
       }
 
+      public function getFromSpoonacular($upc) {
+        $source = new NutritionSource_Spoonacular();
+        $nuts = $source->getNutritionByUPC($upc);
+        
+        return $nuts;
+      }
+
       /** ~~~~~ End Individual Nutrition Source Tests ~~~~~*/
 
 
@@ -207,7 +229,7 @@ class ApiController extends Controller
         $data["nutrition_source"] =  $request->nutrition_source;
         $data["nutrition_method"] = "manual";
         $data["status"] = 200;
-        
+
         $food = Food::updateOrCreate(
           ['upc' => $upc],
           $data

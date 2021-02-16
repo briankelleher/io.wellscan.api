@@ -46,17 +46,7 @@ class NutritionSource_OFF extends Controller
             $data['msg'] = "Product not found in OpenFoodFacts";
         }
         
-        
-        
-        
-        
-
-
-        
-        
         return $data;
-
-        
 
     }
 }

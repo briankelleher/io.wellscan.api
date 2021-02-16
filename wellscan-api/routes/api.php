@@ -30,6 +30,7 @@ Route::get('foods/lookup/{upc}/{category}', 'App\Http\Controllers\ApiController@
 
 Route::get('foods/usda/{upc}', 'App\Http\Controllers\ApiController@getFromUSDA');
 Route::get('foods/off/{upc}', 'App\Http\Controllers\ApiController@getFromOFF');
+Route::get('foods/spoonacular/{upc}', 'App\Http\Controllers\ApiController@getFromSpoonacular');
 
 Route::get('foods/calculateRank/{upc}/{category}', 'App\Http\Controllers\ApiController@calculateRank');
 Route::get('foods/rankFromNuts/{category}/{satfat}/{sodium}/{added_sugars}/{sugars}', 'App\Http\Controllers\ApiController@calculateRankFromNutrients');
