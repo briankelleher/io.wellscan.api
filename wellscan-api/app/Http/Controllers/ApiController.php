@@ -46,7 +46,7 @@ class ApiController extends Controller
         $data['status'] = 404;
         $sources['off'] = new NutritionSource_OFF();
         $sources['spoonacular'] = new NutritionSource_Spoonacular;
-        //$sources['usda'] = new NutritionSource_USDA();
+        $sources['usda'] = new NutritionSource_USDA();
 
         
 
@@ -59,12 +59,16 @@ class ApiController extends Controller
         $data = $sources['off']->getNutritionByUPC($upc);
 
         if($data['status'] == 404){
+          $data = $sources['usda']->getNutritionbyUPC($upc);
+        }
+
+        if($data['status'] == 404){
           $data = $sources['spoonacular']->getNutritionbyUPC($upc);
         }
 
-        // if($data['status'] == 404){
-        //   $data = $sources['usda']->getNutritionbyUPC($upc);
-        // }
+        if ($data['status'] == 404) {
+          $data ['msg'] = "checked all (".count($sources).") sources, food not found";
+        }
         
 
         if ($data['status'] !== 404): 
@@ -114,10 +118,20 @@ class ApiController extends Controller
         
         $rank = $this->calculateSWAPRankByNutritionInfo($food->nutrition, $category);
         
+        
         $data = [];
+        
+        $data['rankings']['swap']['category'] = $category;
         $data['rankings']['swap']['rank'] = $rank;
 
-        return $this->updateFood($upc, $data);
+
+        $food = Food::updateOrCreate(
+          ['upc' => $upc],
+          $data
+        );
+
+        $food->save();
+        return $food;
       }
 
       public function calculateRankFromNutrients($category, $satfat, $sodium, $added_sugars, $sugars) {
@@ -217,16 +231,17 @@ class ApiController extends Controller
         return $food;
       }
   
-      public function updateFood (Request $request, $upc) {
-        
-        $data['upc'] = $upc;
-        $data['name'] = $request->name;
-        $data['nutrition']['nf_saturated_fat'] = $request->nf_saturated_fat;
-        $data['nutrition']['nf_sodium'] = $request->sodium;
-        $data['nutrition']['nf_sugars'] = $request->sugars;
-        $data['rankings']['swap']['category'] = $request->category;
-        $data['rankings']['swap']['rank'] = $request->rank;
-        $data["nutrition_source"] =  $request->nutrition_source;
+      public function updateFood ($food, $data) {
+      
+
+        $data['upc'] = $food->upc;
+        $data['name'] = $data->name;
+        $data['nutrition']['nf_saturated_fat'] = $data->nf_saturated_fat;
+        $data['nutrition']['nf_sodium'] = $data->sodium;
+        $data['nutrition']['nf_sugars'] = $data->sugars;
+        $data['rankings']['swap']['category'] = $data->category;
+        $data['rankings']['swap']['rank'] = $data->rank;
+        $data["nutrition_source"] =  $data->nutrition_source;
         $data["nutrition_method"] = "manual";
         $data["status"] = 200;
 
