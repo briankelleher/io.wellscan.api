@@ -41,6 +41,9 @@ class NutritionSource_Spoonacular extends Controller
             $data['nutrition']['nf_sodium'] = $data['Sodium'];
             $data['nutrition']['nf_saturated_fat'] = $data['Saturated Fat'];
             $data['nutrition']['nf_sugars'] = $data['Sugar'];
+
+            $data['nutrition']['nf_added_sugars'] = "NA";
+            
             $data['nutrition_source'] = $this->source;
             $data['nutrition_method'] = 'automated';
             $data['msg'] = "Found product in Spoonacular";
