@@ -36,6 +36,7 @@ class ApiController extends Controller
 
         $food = Food::where('upc', '=', $upc)->get();
         if ($food->count()) {
+          
           $food_already_exists = true;
           $existing_rankings = $food[0]->rankings;
           return $food[0];
@@ -126,15 +127,15 @@ class ApiController extends Controller
         $data['rankings']['swap']['category'] = $category;
         $data['rankings']['swap']['rank'] = $rank;
 
-        return $this->updateFood($upc, $data);
+        //return $this->updateFood($upc, $data);
 
-        // $food = Food::updateOrCreate(
-        //   ['upc' => $upc],
-        //   $data
-        // );
+        $food = Food::updateOrCreate(
+          ['upc' => $upc],
+          $data
+        );
 
-        // $food->save();
-        // return $food;
+        $food->save();
+        return $food;
       }
 
       public function calculateRankFromNutrients($category, $satfat, $sodium, $added_sugars, $sugars) {
@@ -238,9 +239,10 @@ class ApiController extends Controller
 
         $data['upc'] = $upc;
         $data['name'] = $request->name;
-        $data['nutrition']['nf_saturated_fat'] = $request->nf_saturated_fat;
-        $data['nutrition']['nf_sodium'] = $request->sodium;
-        $data['nutrition']['nf_sugars'] = $request->sugars;
+        $data['nutrition']['nf_saturated_fat'] = (int) $request->nf_saturated_fat;
+        $data['nutrition']['nf_sodium'] = (int) $request->sodium;
+        $data['nutrition']['nf_sugars'] = (int) $request->sugars;
+        $data['nutrition']['nf_added_sugars'] = 0;
         $data['rankings']['swap']['category'] = $request->category;
         $data['rankings']['swap']['rank'] = $request->rank;
         $data["nutrition_source"] =  $request->nutrition_source;
