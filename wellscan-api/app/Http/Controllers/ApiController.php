@@ -115,27 +115,31 @@ class ApiController extends Controller
    
         $food = new Food();
         $food = $food->where('upc',$upc)->limit(1)->get();
-        $food = $food[0];
-        
-        
-        
-        $rank = $this->calculateSWAPRankByNutritionInfo($food->nutrition, $category);
-        
-        
-        $data = [];
-        
-        $data['rankings']['swap']['category'] = $category;
-        $data['rankings']['swap']['rank'] = $rank;
+        $data['msg'] = "Food not found. Try a lookup first.";
+        $data['status'] = 404;
 
-        //return $this->updateFood($upc, $data);
+        if(count($food)):
+            $food = $food[0];
+            
+            $rank = $this->calculateSWAPRankByNutritionInfo($food->nutrition, $category);
+            
+            
+            $data = [];
+            
+            $data['rankings']['swap']['category'] = $category;
+            $data['rankings']['swap']['rank'] = $rank;
 
-        $food = Food::updateOrCreate(
-          ['upc' => $upc],
-          $data
-        );
+            //return $this->updateFood($upc, $data);
 
-        $food->save();
-        return $food;
+            $food = Food::updateOrCreate(
+              ['upc' => $upc],
+              $data
+            );
+
+            $food->save();
+            return $food;
+          endif;
+        return $data;
       }
 
       public function calculateRankFromNutrients($category, $satfat, $sodium, $added_sugars, $sugars) {
