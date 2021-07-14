@@ -23,21 +23,33 @@ class NutritionSource_Spoonacular extends Controller
         $res = json_decode($res);
 
         
-
+       
         
 
-        if(isset($res->nutrition->nutrients)) {
+        if( isset($res->nutrition->nutrients) 
+            and !empty($res->nutrition->nutrients) ) {
             $nuts = $res->nutrition->nutrients;
-
+          
+           
             $data = array();
 
             foreach($nuts as $nut) {
                 $data[$nut->name] = $nut->amount;
             }
-
+        } else {
+            $data['status'] = 404;
+            $data['msg'] = "Product not found in Spoonacular";
+        }
+    
+        if(isset($data['Sodium'])
+                or isset($data['Saturated Fat'])
+                or isset($data['Sugar'])) {
         
             $data['name'] = $res->title;
             $data['upc'] = $upc;
+
+            
+            
             $data['nutrition']['nf_sodium'] = $data['Sodium'];
             $data['nutrition']['nf_saturated_fat'] = $data['Saturated Fat'];
             $data['nutrition']['nf_sugars'] = $data['Sugar'];
