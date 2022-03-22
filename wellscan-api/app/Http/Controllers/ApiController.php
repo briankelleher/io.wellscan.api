@@ -246,7 +246,7 @@ class ApiController extends Controller
         $data['nutrition']['nf_saturated_fat'] = (int) $request->nf_saturated_fat;
         $data['nutrition']['nf_sodium'] = (int) $request->sodium;
         $data['nutrition']['nf_sugars'] = (int) $request->sugars;
-        $data['nutrition']['nf_added_sugars'] = 0;
+        $data['nutrition']['nf_added_sugars'] = (int) $request->added_sugars;
         $data['rankings']['swap']['category'] = $request->category;
         $data['rankings']['swap']['rank'] = $request->rank;
         $data["nutrition_source"] =  $request->nutrition_source;

@@ -61,6 +61,9 @@ class NutritionSource_USDA extends Controller
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $res = curl_exec($ch);
         curl_close($ch);
+        if ($res === FALSE) {
+            die("Curl failed: " . curL_error($ch));
+        }
         //echo $res;
         $res = json_decode($res);
         
