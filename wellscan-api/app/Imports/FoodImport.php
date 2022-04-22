@@ -6,9 +6,17 @@ use App\Models\Food;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Concerns\WithUpsertColumns;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Concerns\SkipsFailures;
+use Illuminate\Validation\Rule;
 
-class FoodImport implements ToModel, WithUpserts, WithUpsertColumns
+class FoodImport implements ToModel, WithUpserts, WithUpsertColumns, WithValidation, SkipsOnFailure
 {
+
+    use Importable, SkipsFailures;
+
     /**
     * @param array $row
     *
@@ -17,6 +25,18 @@ class FoodImport implements ToModel, WithUpserts, WithUpsertColumns
     public function model(array $row)
     {
         $food = new Food();
+
+        $tags = [];
+        $fano = '';
+
+        if ( isset($row[13]) ) {
+            $fano = $row[13];
+        }
+        foreach ([14,15,16] as $i) {
+            if ( isset($row[$i]) ) {
+                array_push($tags, $row[$i]);
+            }
+        }
 
         $food->name = $row[1];
         $food->upc = $row[0];
@@ -32,7 +52,9 @@ class FoodImport implements ToModel, WithUpserts, WithUpsertColumns
             'swap' => array(
                 'category' => 'mixed-dish',
                 'rank' => $row[10]
-            )
+            ),
+            'fano' => $fano,
+            'tags' => $tags
         );
         $food->status = '200';
 
@@ -45,6 +67,12 @@ class FoodImport implements ToModel, WithUpserts, WithUpsertColumns
     }
 
     public function upsertColumns() {
-        return ['nutrition_method', 'nutrition'];
+        return [];
+    }
+
+    public function rules(): array {
+        return [
+            '0' => Rule::unique('food', 'upc')
+        ];
     }
 }

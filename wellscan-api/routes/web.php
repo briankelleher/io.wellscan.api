@@ -19,4 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('import-ops', [ImportController::class, 'index']);
-Route::post('import', [ImportController::class, 'import'])->name('import-soups');
+
+Route::middleware(['importbasic'])->group(function() {
+    Route::post('import', [ImportController::class, 'import'])->name('import-soups');
+});
+
