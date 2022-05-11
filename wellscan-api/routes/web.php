@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('import-ops', [ImportController::class, 'index']);
+
+Route::middleware(['importbasic'])->group(function() {
+    Route::post('import', [ImportController::class, 'import'])->name('import-soups');
+});
+
