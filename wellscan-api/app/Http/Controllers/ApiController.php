@@ -16,6 +16,16 @@ class ApiController extends Controller
         $foods = Food::get()->toJson(JSON_PRETTY_PRINT);
         return response($foods, 200);
       }
+
+      public function getAllFoodsByHERCat($category) {
+        $foods = Food::where('rankings->swap->category', $category)->get()->toJson(JSON_PRETTY_PRINT);
+        return response($foods, 200);
+      }
+
+      public function getAllFoodsByHERRank($rank) {
+        $foods = Food::where('rankings->swap->rank', $rank)->get()->toJson(JSON_PRETTY_PRINT);
+        return response($foods, 200);
+      }
   
       public function createFood(Request $request) {
         $food = new Food;

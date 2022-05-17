@@ -21,6 +21,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('api')->get('foods', 'App\Http\Controllers\ApiController@getAllFoods');
 
 Route::get('foods/{upc}', 'App\Http\Controllers\ApiController@getFood');
+Route::get('foods/category/{category}', 'App\Http\Controllers\ApiController@getAllFoodsByHERCat');
+Route::get('foods/rank/{rank}', 'App\Http\Controllers\ApiController@getAllFoodsByHERRank');
 
 Route::middleware('api')->post('foods', 'App\Http\Controllers\ApiController@createFood');
 
