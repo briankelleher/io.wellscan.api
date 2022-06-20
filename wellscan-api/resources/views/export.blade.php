@@ -25,7 +25,7 @@
             background-color: white;
         }
 
-        input {
+        input, select {
             color: black;
         }
     </style>
@@ -38,13 +38,34 @@
         <form action="{{ route('export-fano') }}" method="POST" >
         @csrf
             <div class="form-group mt-4 mb-4">
-                <h3>Export By FANO:</h3>
-                <ul>
+                <h3>Export By FANO</h3>
+                <select name="fano" id="fanoSelect">
                     @foreach ($fanos as $fano)
-                        <li>{{ trim($fano['fano'], '"') }}</li>
+                        <option value="{{ $fano['fano'] }}">{{ $fano['fano'] }}</li>
                     @endforeach  
-                </ul>
-                <input type="text" name="fano" id="fanoInput" placeholder="Soup">
+                </select>
+                <button class="btn btn-primary">Export</button>
+            </div>
+        </form>
+
+        <form action="{{ route('export-her') }}" method="POST">
+            @csrf
+            <div class="form-group mt-4 mb-4">
+                <h3>Export by HER Category</h3>
+                <select name="her" id="herSelect">
+                    @foreach ($hers as $her)
+                        <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                    @endforeach  
+                </select>
+                <button class="btn btn-primary">Export</button>
+            </div>
+        </form>
+
+        <form action="{{ route('export-tag') }}" method="POST">
+            @csrf
+            <div class="form-group mt-4 mb-4">
+                <h3>Export by Tag</h3>
+                <input name="tag" id="tagInput" placeholder="stew">
                 <button class="btn btn-primary">Export</button>
             </div>
         </form>
