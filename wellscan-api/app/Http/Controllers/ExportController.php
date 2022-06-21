@@ -20,12 +20,6 @@ class ExportController extends Controller {
         ]);
     }
 
-    public function exportFano(Request $request) {
-        $fano = $request->fano;
-
-        return (new FoodExport)->forFano($fano)->download('food_fano.xlsx');
-    }
-
     public function exportHer(Request $request) {
         $her = $request->her;
 
@@ -36,6 +30,13 @@ class ExportController extends Controller {
         $tag = $request->tag;
 
         return (new FoodExport)->forTag($tag)->download('food_tag.xlsx');
+    }
+
+    public function exportComplexQuery(Request $request) {
+        $hers = $request->her;
+        $tags = $request->tag;
+
+        return (new FoodExport)->complex($hers, $tags)->download('food_complex.xlsx');
     }
 
 }

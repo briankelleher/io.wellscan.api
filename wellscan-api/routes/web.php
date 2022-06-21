@@ -24,8 +24,8 @@ Route::middleware(['importbasic'])->group(function() {
     Route::post('import', [ImportController::class, 'import'])->name('import-soups');
 
     Route::get('export', [ExportController::class, 'index']);
-    Route::post('export/fano/', [ExportController::class, 'exportFano'])->name('export-fano');
     Route::post('export/her/', [ExportController::class, 'exportHer'])->name('export-her');
     Route::post('export/tag/', [ExportController::class, 'exportTag'])->name('export-tag');
+    Route::post('export/complex/', [ExportController::class, 'exportComplexQuery'])->name('export-complex');
 });
 

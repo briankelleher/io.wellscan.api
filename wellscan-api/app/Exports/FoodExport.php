@@ -26,9 +26,43 @@ class FoodExport implements FromQuery
         return $this;
     }
 
+    public function complex(array $hers, array $tags) {
+        $this->hers = array_map(function($h) {
+            return strtolower($h);
+        }, $hers);
+        $this->tags = array_map(function($t) {
+            return strtolower($t);
+        }, $tags);
+        $this->complex = true;
+        return $this;
+    }
+
     public function query() {
+        /**
+         * For the next dev:
+         * -> will give value in quotes
+         * ->> will give value unwrapped
+         */
+        if ( isset($this->complex) && isset($this->hers) && isset($this->tags) && $this->complex ) {
+            $q = Food::whereRaw('lower(rankings->>"$.swap.category") in (?)', $this->hers)
+            ->where(function($query) {
+                $tag_combo_query = '';
+                $tag_combo_query_count = 0;
+                foreach ($this->tags as $t) {
+                    if ( $t ) {
+                        if ( $tag_combo_query_count < 1 ) {
+                            $query->whereRaw("json_search(lower(rankings->>'$.tags'), 'one', ?)", $t);
+                        } else {
+                            $query->orWhereRaw("json_search(lower(rankings->>'$.tags'), 'one', ?)", $t);
+                        }
+                        $tag_combo_query_count++;
+                    }
+                }
+            });
+            return $q;
+        }
+
         if ( isset($this->fano) ) {
-            /* When traversing JSON like this, you receive a value in string quotes (and without if you are expecting integer and such.) */
             return Food::whereRaw('LOWER(rankings->>"$.fano") = ?', strtolower($this->fano));
         }
 

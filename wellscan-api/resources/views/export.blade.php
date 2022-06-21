@@ -25,7 +25,7 @@
             background-color: white;
         }
 
-        input, select {
+        input, select, select option {
             color: black;
         }
     </style>
@@ -35,40 +35,71 @@
         <h1>WellSCAN Export</h1>
         
         <hr>
-        <form action="{{ route('export-fano') }}" method="POST" >
-        @csrf
-            <div class="form-group mt-4 mb-4">
-                <h3>Export By FANO</h3>
-                <select name="fano" id="fanoSelect">
-                    @foreach ($fanos as $fano)
-                        <option value="{{ $fano['fano'] }}">{{ $fano['fano'] }}</li>
-                    @endforeach  
-                </select>
-                <button class="btn btn-primary">Export</button>
-            </div>
-        </form>
 
-        <form action="{{ route('export-her') }}" method="POST">
-            @csrf
-            <div class="form-group mt-4 mb-4">
-                <h3>Export by HER Category</h3>
-                <select name="her" id="herSelect">
-                    @foreach ($hers as $her)
-                        <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
-                    @endforeach  
-                </select>
-                <button class="btn btn-primary">Export</button>
+        <div class="row">
+            <div class="col">
+                <form action="{{ route('export-her') }}" method="POST" class="mb-5">
+                    @csrf
+                    <div class="form-contain mt-4 mb-4">
+                        <h3>Export by HER Category</h3>
+                        <div class="form-group">
+                            <label for="herSelect">SWAP / HER Category</label>
+                            <select name="her" id="herSelect" class="form-control">
+                                @foreach ($hers as $her)
+                                    <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                @endforeach  
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Export</button>
+                    </div>
+                    
+                </form>
             </div>
-        </form>
+            <div class="col">
+                <form action="{{ route('export-tag') }}" method="POST" class="mb-5">
+                    @csrf
+                    <div class="form-contain mt-4 mb-4">
+                        <h3>Export by Tag</h3>
+                        <div class="form-group">
+                            <label for="tagInput">Tag</label>
+                            <input name="tag" id="tagInput" class="form-control" placeholder="stew">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Export</button>
+                </form>
+            </div>
+        </div>
 
-        <form action="{{ route('export-tag') }}" method="POST">
-            @csrf
-            <div class="form-group mt-4 mb-4">
-                <h3>Export by Tag</h3>
-                <input name="tag" id="tagInput" placeholder="stew">
-                <button class="btn btn-primary">Export</button>
+        <div class="row">
+            <div class="col">
+                <form action="{{ route('export-complex') }}" method="POST" class="mb-5">
+                    @csrf
+                    <div class="form-contain mt-4 mb-4">
+                        <h3>Export Complex</h3>
+                        <div class="form-group">
+                            <label for="herMultiSelect">SWAP / HER Category</label>
+                            <select name="her[]" id="herMultiSelect" multiple class="form-control">
+                                @foreach ($hers as $her)
+                                    <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                @endforeach  
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tagInput1">AND Tag 1</label>
+                            <input name="tag[]" id="tagInput1" placeholder="stew" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tagInput2">AND Tag 2</label>
+                            <input name="tag[]" id="tagInput2" placeholder="stew" class="form-control">
+                        </div>
+                    </div>
+                    <button class="btn btn-primary">Export</button>
+                </form>
             </div>
-        </form>
+            <div class="col"></div>
+        </div>
     </div>
     
 </body>
