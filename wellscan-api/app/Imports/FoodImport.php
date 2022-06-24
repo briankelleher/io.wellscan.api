@@ -12,6 +12,10 @@ use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Illuminate\Validation\Rule;
 
+/**
+ * This should be renamed for just mixed-dish, soups.  A more general import is in GeneralFoodImport.php.
+ */
+
 class FoodImport implements ToModel, WithUpserts, WithUpsertColumns, WithValidation, SkipsOnFailure
 {
 
