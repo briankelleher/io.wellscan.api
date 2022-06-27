@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImportController;
+use App\Http\Controllers\ExportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('import-ops', [ImportController::class, 'index']);
-
 Route::middleware(['importbasic'])->group(function() {
+    Route::get('import-ops', [ImportController::class, 'index']);
     Route::post('import', [ImportController::class, 'import'])->name('import-soups');
+    Route::post('import-dairy', [ImportController::class, 'importDairy'])->name('import-dairy');
+
+    Route::get('export', [ExportController::class, 'index']);
+    Route::post('export/her/', [ExportController::class, 'exportHer'])->name('export-her');
+    Route::post('export/tag/', [ExportController::class, 'exportTag'])->name('export-tag');
+    Route::post('export/complex/', [ExportController::class, 'exportComplexQuery'])->name('export-complex');
 });
 
