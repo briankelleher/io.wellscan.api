@@ -34,6 +34,23 @@ class GeneralFoodImport implements ToModel, WithValidation, SkipsOnFailure, With
         $tags = [];
         $startRow = 13;
 
+        $upc = $row[0];
+        $name = $row[1];
+        $nutrition_source = 'usda';
+        $nutrition_method = 'import';
+        $sugars = floatval($row[5]);
+        $sodium = floatval($row[6]);
+        $saturated_fat = floatval($row[7]);
+        $added_sugars = $row[8] ? floatval($row[8]) : 'N/A';
+        $swap_category = $row[12];
+        $swap_rank = $row[10];
+        $status = '200';
+
+        // Ignore header.  I would use the WithHeaderRow concern, but it might not always have one.
+        if ( strtolower($row[0]) === 'upc' ) {
+            return null;
+        }
+
         while (isset($row[$startRow])) {
             if ( $row[$startRow] ) {
                 array_push($tags, $row[$startRow]);
@@ -41,24 +58,24 @@ class GeneralFoodImport implements ToModel, WithValidation, SkipsOnFailure, With
             $startRow++;
         }
 
-        $food->name = $row[1];
-        $food->upc = $row[0];
-        $food->nutrition_source = 'usda';
-        $food->nutrition_method = 'import';
+        $food->name = $name;
+        $food->upc = $upc;
+        $food->nutrition_source = $nutrition_source;
+        $food->nutrition_method = $nutrition_method;
         $food->nutrition = array(
-            'nf_sugars' => floatval($row[5]),
-            'nf_sodium' => floatval($row[6]),
-            'nf_saturated_fat' => floatval($row[7]),
-            'nf_added_sugars' => $row[8] ? floatval($row[8]) : 'N/A'
+            'nf_sugars' => $sugars,
+            'nf_sodium' => $sodium,
+            'nf_saturated_fat' => $saturated_fat,
+            'nf_added_sugars' => $added_sugars
         );
         $food->rankings = array(
             'swap' => array(
-                'category' => $row[12],
-                'rank' => $row[10]
+                'category' => $swap_category,
+                'rank' => $swap_rank
             ),
             'tags' => $tags
         );
-        $food->status = '200';
+        $food->status = $status;
 
 
         return $food;

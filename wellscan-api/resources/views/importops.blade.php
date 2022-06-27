@@ -29,6 +29,12 @@
 <body>
     <div class="container mt-4">
         <h1>WellSCAN Import Operations</h1>
+
+        @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
         
         <hr>
         <form action="{{ route('import-soups') }}" method="POST" >
@@ -48,6 +54,17 @@
                 <p>UPC will not be duplicated, existing records will not be touched.</p>
                 <p>This action uploads a dairy.xlsx file from storage/app/importsheets.</p>
                 <button class="btn btn-primary" type="submit">Import Dairy</button>
+            </div>
+        </form>
+
+
+        <form action="{{ route('import-broth') }}" method="POST">
+        @csrf
+            <div class="form-group">
+                <h3>Import 2: Broth, Stock</h3>
+                <p>UPC will not be duplicated, existing records will not be touched.</p>
+                <p>This action uploads a broth_stock.xlsx file from storage/app/importsheets.</p>
+                <button class="btn btn-primary" type="submit">Import Broth</button>
             </div>
         </form>
     </div>
