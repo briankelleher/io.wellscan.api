@@ -33,4 +33,24 @@ class ImportController extends Controller {
         return redirect('/import-ops')->with('success', 'Broth successfully imported.');
     }
 
+    public function modifyExistingSoups() {
+        $foods = Food::where('nutrition_method', 'import')
+            ->where('rankings->fano', 'Soup')
+            ->get();
+
+        // Go through, unset fano, set Soup as first tag
+        for ($i=0; $i < count($foods); $i++) { 
+            $food = $foods[$i];
+            $rankings = $food->rankings;
+            array_unshift($rankings['tags'], 'Soup');
+            unset($rankings['fano']);
+            $food->update([
+                'rankings' => $rankings
+            ]);
+            $food->save();
+        }
+
+        return view('importops');
+    }
+
 }
