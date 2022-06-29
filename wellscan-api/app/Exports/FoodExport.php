@@ -6,15 +6,11 @@ use DB;
 use App\Models\Food;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
-class FoodExport implements FromQuery
+class FoodExport implements FromQuery, WithMapping
 {
     use Exportable;
-
-    public function forFano(string $fano) {
-        $this->fano = $fano;
-        return $this;
-    }
 
     public function forTag(string $tag) {
         $this->tag = $tag;
@@ -62,10 +58,6 @@ class FoodExport implements FromQuery
             return $q;
         }
 
-        if ( isset($this->fano) ) {
-            return Food::whereRaw('LOWER(rankings->>"$.fano") = ?', strtolower($this->fano));
-        }
-
         if ( isset($this->her) ) {
             return Food::whereRaw('lower(rankings->>"$.swap.category") = ?', strtolower($this->her));
         }
@@ -75,5 +67,26 @@ class FoodExport implements FromQuery
         }
 
         return false;
+    }
+
+    public function map($food) : array {
+        $export = [
+            $food->upc,
+            $food->name,
+            isset($food->nutrition['nf_sugars']) ? $food->nutrition['nf_sugars'] : 0,
+            isset($food->nutrition['nf_sodium']) ? $food->nutrition['nf_sodium'] : 0,
+            isset($food->nutrition['nf_saturated_fat']) ? $food->nutrition['nf_saturated_fat'] : 0,
+            (!isset($food->nutrition['nf_added_sugars']) || $food->nutrition['nf_added_sugars'] === 'N/A') ? 0 : $food->nutrition['nf_added_sugars'],
+            isset($food->rankings['swap']['category']) ? $food->rankings['swap']['category'] : 'no-category',
+            isset($food->rankings['swap']['rank']) ? $food->rankings['swap']['rank'] : 'unranked'
+        ];
+
+        if ( isset($food->rankings['tags']) ) {
+            foreach ($food->rankings['tags'] as $tag) {
+                array_push($export, $tag);
+            }
+        }
+        
+        return $export;
     }
 }

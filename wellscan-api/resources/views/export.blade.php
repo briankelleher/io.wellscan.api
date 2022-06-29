@@ -46,7 +46,9 @@
                             <label for="herSelect">SWAP / HER Category</label>
                             <select name="her" id="herSelect" class="form-control">
                                 @foreach ($hers as $her)
-                                    <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                    @if ($her)
+                                        <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                    @endif
                                 @endforeach  
                             </select>
                         </div>
@@ -76,11 +78,14 @@
                     @csrf
                     <div class="form-contain mt-4 mb-4">
                         <h3>Export Complex</h3>
+                        <p>All fields filled in here will be combined in a query.</p>
                         <div class="form-group">
                             <label for="herMultiSelect">SWAP / HER Category</label>
                             <select name="her[]" id="herMultiSelect" multiple class="form-control">
                                 @foreach ($hers as $her)
-                                    <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                    @if ($her)
+                                        <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
+                                    @endif
                                 @endforeach  
                             </select>
                         </div>

@@ -47,6 +47,15 @@
             </div>
         </form>
 
+        <form action="{{ route('modify-soups') }}" method="POST" >
+            @csrf
+                <div class="form-group mt-4 mb-4">
+                    <h3>Import 1.5: Modify Soups</h3>
+                    <p>This action combs through FANO soups and fixes their tagging.</p>
+                    <button class="btn btn-primary">Modify Soups</button>
+                </div>
+            </form>
+
         <form action="{{ route('import-dairy') }}" method="POST">
         @csrf
             <div class="form-group">
