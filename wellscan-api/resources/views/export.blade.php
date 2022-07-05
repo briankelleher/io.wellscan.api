@@ -28,6 +28,22 @@
         input, select, select option {
             color: black;
         }
+
+        .form-control::placeholder {
+            color: rgb(169, 169, 169);
+        }
+
+        .form-control::-webkit-input-placeholder {
+            color: rgb(169, 169, 169);
+        }
+
+        .form-control:-ms-input-placeholder {
+            color: rgb(169, 169, 169);
+        }
+
+        .form-control::-moz-placeholder {
+            color: rgb(169, 169, 169);
+        }
     </style>
 </head>
 <body>
@@ -64,7 +80,7 @@
                         <h3>Export by Tag</h3>
                         <div class="form-group">
                             <label for="tagInput">Tag</label>
-                            <input name="tag" id="tagInput" class="form-control" placeholder="stew">
+                            <input name="tag" id="tagInput" class="form-control" placeholder="tag">
                         </div>
                     </div>
                     <button class="btn btn-primary">Export</button>
@@ -92,12 +108,12 @@
 
                         <div class="form-group">
                             <label for="tagInput1">AND Tag 1</label>
-                            <input name="tag[]" id="tagInput1" placeholder="stew" class="form-control">
+                            <input name="tag[]" id="tagInput1" placeholder="tag" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label for="tagInput2">AND Tag 2</label>
-                            <input name="tag[]" id="tagInput2" placeholder="stew" class="form-control">
+                            <input name="tag[]" id="tagInput2" placeholder="tag" class="form-control">
                         </div>
                     </div>
                     <button class="btn btn-primary">Export</button>

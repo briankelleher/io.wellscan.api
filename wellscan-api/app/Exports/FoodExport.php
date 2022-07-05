@@ -7,8 +7,9 @@ use App\Models\Food;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class FoodExport implements FromQuery, WithMapping
+class FoodExport implements FromQuery, WithMapping, WithHeadings
 {
     use Exportable;
 
@@ -88,5 +89,19 @@ class FoodExport implements FromQuery, WithMapping
         }
         
         return $export;
+    }
+
+    public function headings() : array {
+        return [
+            'UPC',
+            'Name',
+            'Sugar',
+            'Sodium',
+            'Saturated Fat',
+            'Added Sugars',
+            'SWAP/Her Category',
+            'Ranking',
+            'Tags'
+        ];
     }
 }
