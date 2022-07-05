@@ -92,6 +92,6 @@ class GeneralFoodImport implements ToModel, WithValidation, SkipsOnFailure, With
     }
 
     public function batchSize() : int {
-        return 2000;
+        return 5000;
     }
 }

@@ -21,6 +21,12 @@ class ImportController extends Controller {
         return redirect('/import-ops')->with('success', 'Soups successfully imported.');
     }
 
+    public function importDairyCheese(Request $request) {
+        Excel::import(new GeneralFoodImport, 'importsheets/dairy_cheese.xlsx', 'local');
+
+        return redirect('/import-ops')->with('success', 'Dairy cheeses successfully imported.');
+    }
+
     public function importDairy(Request $request) {
         Excel::import(new GeneralFoodImport, 'importsheets/dairy.xlsx', 'local');
 

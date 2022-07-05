@@ -56,10 +56,20 @@
                 </div>
             </form>
 
+        <form action="{{ route('import-dairy-cheese') }}" method="POST">
+        @csrf
+            <div class="form-group">
+                <h3>Import 2: Dairy Cheese</h3>
+                <p>UPC will not be duplicated, existing records will not be touched.</p>
+                <p>This action uploads a dairy_cheese.xlsx file from storage/app/importsheets.</p>
+                <button class="btn btn-primary" type="submit">Import Dairy Cheese</button>
+            </div>
+        </form>
+
         <form action="{{ route('import-dairy') }}" method="POST">
         @csrf
             <div class="form-group">
-                <h3>Import 2: Dairy</h3>
+                <h3>Import 2.5: Dairy</h3>
                 <p>UPC will not be duplicated, existing records will not be touched.</p>
                 <p>This action uploads a dairy.xlsx file from storage/app/importsheets.</p>
                 <button class="btn btn-primary" type="submit">Import Dairy</button>
@@ -70,7 +80,7 @@
         <form action="{{ route('import-broth') }}" method="POST">
         @csrf
             <div class="form-group">
-                <h3>Import 2: Broth, Stock</h3>
+                <h3>Import 3: Broth, Stock</h3>
                 <p>UPC will not be duplicated, existing records will not be touched.</p>
                 <p>This action uploads a broth_stock.xlsx file from storage/app/importsheets.</p>
                 <button class="btn btn-primary" type="submit">Import Broth</button>

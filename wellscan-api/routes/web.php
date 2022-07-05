@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::middleware(['importbasic'])->group(function() {
     Route::get('import-ops', [ImportController::class, 'index']);
     Route::post('import', [ImportController::class, 'import'])->name('import-soups');
+    Route::post('import-dairy-cheese', [ImportController::class, 'importDairyCheese'])->name('import-dairy-cheese');
     Route::post('import-dairy', [ImportController::class, 'importDairy'])->name('import-dairy');
     Route::post('import-broth', [ImportController::class, 'importBroth'])->name('import-broth');
     Route::post('modify-soups', [ImportController::class, 'modifyExistingSoups'])->name('modify-soups');
