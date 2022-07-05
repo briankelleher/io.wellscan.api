@@ -62,9 +62,7 @@
                             <label for="herSelect">SWAP / HER Category</label>
                             <select name="her" id="herSelect" class="form-control">
                                 @foreach ($hers as $her)
-                                    @if ($her)
-                                        <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
-                                    @endif
+                                    <option value="{{ $her['her'] }}">{{ $her['her'] }}</li>
                                 @endforeach  
                             </select>
                         </div>

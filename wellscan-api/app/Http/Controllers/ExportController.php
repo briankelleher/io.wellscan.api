@@ -10,13 +10,17 @@ use App\Models\Food;
 class ExportController extends Controller {
 
     public function index() {
-        $fanos = Food::selectRaw('rankings->>"$.fano" as fano')->distinct()->get();
-
         $hers = Food::selectRaw('rankings->>"$.swap.category" as her')->distinct()->get();
 
+        $export_hers = array_filter($hers->toArray(), function($var) {
+            if ( $var['her'] ) {
+                return true;
+            }
+            return false;
+        });
+
         return view('export', [
-            'fanos' => $fanos,
-            'hers' => $hers
+            'hers' => $export_hers
         ]);
     }
 
